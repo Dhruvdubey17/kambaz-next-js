@@ -30,7 +30,10 @@ export default function Labs() {
           </Link>
         </li>
         <li>
-          <Link href="/" id="wd-github-link">
+          <Link
+            href="https://github.com/Dhruvdubey17/kambaz-next-js"
+            id="wd-github-link"
+          >
             Github{" "}
           </Link>
         </li>
