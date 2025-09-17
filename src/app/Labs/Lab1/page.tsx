@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import Link from "next/link";
 export default function Labs() {
@@ -180,20 +181,22 @@ export default function Labs() {
       <div id="wd-images">
         <h4>Image tag</h4>
         Loading an image from the internet: <br />
-        <img
+        <Image
           id="wd-starship"
-          width="400px"
           src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
           alt="Starship Image"
+          width={400}
+          height={300} // you need to provide height too
         />
         <br />
         Loading a local image:
         <br />
-        <img
+        <Image
           id="wd-teslabot"
           src="/images/teslabot.jpg"
-          height="200px"
           alt="Tesla Bot image"
+          width={200}
+          height={200}
         />
       </div>
       <div id="wd-forms">
