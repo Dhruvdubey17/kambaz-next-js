@@ -3,10 +3,9 @@ export default function Lab2() {
   return (
     <div id="wd-landing-page">
       <div id="wd-name-header">
-        <h1>Landing Page</h1>
-        <h2>Assignment 1</h2>
-        <h3>Dhruv Dubey</h3>
-        <h3>Section 5</h3>
+        <h1>Assignment 1</h1>
+        <h2>Dhruv Dubey</h2>
+        <h2>Section 5</h2>
       </div>
 
       <ul>
