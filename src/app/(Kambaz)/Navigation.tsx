@@ -39,15 +39,19 @@ export default function KambazNavigation() {
       {links.map((link, index) => {
         const Icon = link.icon;
 
-        // Special handling for Courses - match any /Courses route
         const isActive =
           link.label === "Courses"
             ? pathname?.startsWith("/Courses")
+            : link.label === "Account"
+            ? pathname?.startsWith("/Account")
             : pathname === link.href || pathname?.startsWith(link.href + "/");
 
-        // Icon color: white for Account, red for all others
         const iconColor =
-          link.label === "Account" ? "text-white" : "text-danger";
+          link.label === "Account"
+            ? isActive
+              ? "text-danger"
+              : "text-white"
+            : "text-danger";
 
         return (
           <ListGroupItem
