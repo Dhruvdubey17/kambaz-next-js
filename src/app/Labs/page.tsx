@@ -1,9 +1,9 @@
 import Link from "next/link";
-export default function Lab2() {
+export default function Labs() {
   return (
     <div id="wd-landing-page">
       <div id="wd-name-header">
-        <h1>Assignment 1</h1>
+        <h1>Labs</h1>
         <h2>Dhruv Dubey</h2>
         <h2>Section 5</h2>
       </div>
