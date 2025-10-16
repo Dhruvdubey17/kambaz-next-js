@@ -14,7 +14,7 @@ export default function KambazNavigation() {
   const links = [
     { href: "/Account", icon: FaRegCircleUser, label: "Account" },
     { href: "/Dashboard", icon: AiOutlineDashboard, label: "Dashboard" },
-    { href: "/Courses/1234/Home", icon: LiaBookSolid, label: "Courses" },
+    { href: "/Dashboard", icon: LiaBookSolid, label: "Courses" },
     { href: "/Calendar", icon: IoCalendarOutline, label: "Calendar" },
     { href: "/Inbox", icon: FaInbox, label: "Inbox" },
     { href: "/Labs", icon: LiaCogSolid, label: "Labs" },
