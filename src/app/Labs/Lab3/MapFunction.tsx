@@ -11,8 +11,8 @@ export default function MapFunction() {
       cubes = {cubes} <br />
       Todos:
       <ol>
-        {todos.map((todo) => (
-          <li>{todo}</li>
+        {todos.map((todo, idx) => (
+          <li key={idx}>{todo}</li>
         ))}
       </ol>{" "}
       <hr />
