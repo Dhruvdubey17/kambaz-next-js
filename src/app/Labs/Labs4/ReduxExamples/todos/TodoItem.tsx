@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { Button, ListGroupItem } from "react-bootstrap";
 import { deleteTodo, setTodo } from "./todosReducer";
 
-// Define TypeScript type for a single todo
 interface Todo {
   id: string;
   title: string;

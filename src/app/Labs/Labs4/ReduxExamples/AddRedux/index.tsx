@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { add } from "./addReducer";
 import { Button, FormControl } from "react-bootstrap";
 
-// Define RootState type
 interface RootState {
   addReducer: {
     sum: number;
