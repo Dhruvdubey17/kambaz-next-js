@@ -1,7 +1,7 @@
 "use client";
 
 import { Provider } from "react-redux";
-import store from "../store"; // adjust path to your store
+import store from "../store"; 
 import TodoList from "./todos/TodoList";
 import AddRedux from "./AddRedux";
 import CounterRedux from "./CounterRedux";
