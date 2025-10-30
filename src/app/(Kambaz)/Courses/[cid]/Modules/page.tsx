@@ -1,169 +1,14 @@
-// "use client";
-// import ModulesControls from "./ModulesControls";
-// import { ListGroup, ListGroupItem } from "react-bootstrap";
-// import { BsGripVertical } from "react-icons/bs";
-// import ModuleControlButtons from "./ModuleControlButton";
-// import LessonControlButtons from "./LessonControlButtons";
-
-// export default function Modules() {
-//   return (
-//     <div>
-//       <ModulesControls />
-//       <br />
-//       <br />
-//       <br />
-//       <ListGroup className="rounded-0" id="wd-modules">
-//         <ListGroupItem className="wd-module p-0 mb-5 fs-5 border-gray">
-//           <div className="wd-title p-3 ps-2 bg-secondary">
-//             <BsGripVertical className="me-2 fs-3" /> Week 1{" "}
-//             <ModuleControlButtons />
-//           </div>
-//           <ListGroup className="wd-lessons rounded-0">
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> LEARNING OBJECTIVES{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Introduction to the
-//               course <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Learn what is Web
-//               Development <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Set up your environment{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//           </ListGroup>
-//           <ListGroup className="wd-lessons rounded-0">
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> READING{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Fullstack Developer -
-//               Chapter 1 - Introduction <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Fullstack Developer -
-//               Chapter 2 - Getting environment ready <LessonControlButtons />
-//             </ListGroupItem>
-//           </ListGroup>
-//           <ListGroup className="wd-lessons rounded-0">
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> SLIDES{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Intro to Web Development{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Creating a server with
-//               Node.js and Express <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Creating a react
-//               application <LessonControlButtons />
-//             </ListGroupItem>
-//           </ListGroup>
-//         </ListGroupItem>
-
-//         <ListGroupItem className="wd-module p-0 mb-5 fs-5 border-gray">
-//           <div className="wd-title p-3 ps-2 bg-secondary">
-//             <BsGripVertical className="me-2 fs-3" /> Week 2{" "}
-//             <ModuleControlButtons />
-//           </div>
-//           <ListGroup className="wd-lessons rounded-0">
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> LEARNING OBJECTIVES{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> HTML for beginners{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Learn how to create user
-//               interfaces with HTML <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Deploy app on netlify{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//           </ListGroup>
-//           <ListGroup className="wd-lessons rounded-0">
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> SLIDES{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Intro to HTML and DOM{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Formatting web content
-//               with headings, paragraphs, lists <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Adding forms to your web
-//               pages <LessonControlButtons />
-//             </ListGroupItem>
-//           </ListGroup>
-//         </ListGroupItem>
-
-//         <ListGroupItem className="wd-module p-0 mb-5 fs-5 border-gray">
-//           <div className="wd-title p-3 ps-2 bg-secondary">
-//             <BsGripVertical className="me-2 fs-3" /> Week 3{" "}
-//             <ModuleControlButtons />
-//           </div>
-//           <ListGroup className="wd-lessons rounded-0">
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> LEARNING OBJECTIVES{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> CSS Fundamentals{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Designing user interfaces
-//               with CSS <LessonControlButtons />
-//             </ListGroupItem>
-//           </ListGroup>
-//           <ListGroup className="wd-lessons rounded-0">
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> SLIDES{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Cascading Style Sheets
-//               Introduction <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Adding style to your web
-//               pages <LessonControlButtons />
-//             </ListGroupItem>
-//             <ListGroupItem className="wd-lesson p-3 ps-1">
-//               <BsGripVertical className="me-2 fs-3" /> Using tailwind CSS{" "}
-//               <LessonControlButtons />
-//             </ListGroupItem>
-//           </ListGroup>
-//         </ListGroupItem>
-//       </ListGroup>
-//     </div>
-//   );
-// }
-
 "use client";
+
+import { useState } from "react";
 import { useParams } from "next/navigation";
 import * as db from "../../../Database";
 import ModulesControls from "./ModulesControls";
-import { ListGroup, ListGroupItem } from "react-bootstrap";
+import { ListGroup, ListGroupItem, FormControl } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import ModuleControlButtons from "./ModuleControlButton";
 import LessonControlButtons from "./LessonControlButtons";
+import { v4 as uuidv4 } from "uuid";
 
 interface Lesson {
   _id: string;
@@ -172,37 +17,88 @@ interface Lesson {
   module: string;
 }
 
-interface Module {
+interface ModuleWithEditing {
   _id: string;
   name: string;
   description?: string;
   course: string;
+  editing?: boolean;
   lessons?: Lesson[];
 }
 
 export default function Modules() {
-  const { cid } = useParams();
-  const modules: Module[] = db.modules;
+  const { cid } = useParams<{ cid: string }>();
+  const [modules, setModules] = useState<ModuleWithEditing[]>(db.modules);
+  const [moduleName, setModuleName] = useState("");
+
+  const addModule = () => {
+    setModules([
+      ...modules,
+      {
+        _id: uuidv4(),
+        name: moduleName,
+        course: cid || "",
+        lessons: [],
+      },
+    ]);
+    setModuleName("");
+  };
+
+  const deleteModule = (moduleId: string) => {
+    setModules(modules.filter((m) => m._id !== moduleId));
+  };
+
+  const editModule = (moduleId: string) => {
+    setModules(
+      modules.map((m) => (m._id === moduleId ? { ...m, editing: true } : m))
+    );
+  };
+
+  const updateModule = (module: ModuleWithEditing) => {
+    setModules(modules.map((m) => (m._id === module._id ? module : m)));
+  };
 
   return (
     <div>
-      <ModulesControls />
+      <ModulesControls
+        moduleName={moduleName}
+        setModuleName={setModuleName}
+        addModule={addModule}
+      />
       <br />
       <br />
       <br />
       <ListGroup id="wd-modules" className="rounded-0">
         {modules
-          .filter((module: Module) => module.course === cid)
-          .map((module: Module) => (
+          .filter((module) => module.course === cid)
+          .map((module) => (
             <ListGroupItem
               key={module._id}
               className="wd-module p-0 mb-5 fs-5 border-gray"
             >
               <div className="wd-title p-3 ps-2 bg-secondary">
-                <BsGripVertical className="me-2 fs-3" /> {module.name}{" "}
-                <ModuleControlButtons />
+                <BsGripVertical className="me-2 fs-3" />
+                {!module.editing && module.name}
+                {module.editing && (
+                  <FormControl
+                    className="w-50 d-inline-block"
+                    onChange={(e) =>
+                      updateModule({ ...module, name: e.target.value })
+                    }
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        updateModule({ ...module, editing: false });
+                      }
+                    }}
+                    defaultValue={module.name}
+                  />
+                )}
+                <ModuleControlButtons
+                  moduleId={module._id}
+                  deleteModule={deleteModule}
+                  editModule={editModule}
+                />
               </div>
-              {/* Display module description if it exists */}
               {module.description && (
                 <div className="wd-description p-3 ps-2">
                   {module.description}
@@ -210,14 +106,13 @@ export default function Modules() {
               )}
               {module.lessons && (
                 <ListGroup className="wd-lessons rounded-0">
-                  {module.lessons.map((lesson: Lesson) => (
+                  {module.lessons.map((lesson) => (
                     <ListGroupItem
                       key={lesson._id}
                       className="wd-lesson p-3 ps-1"
                     >
-                      <BsGripVertical className="me-2 fs-3" /> {lesson.name}{" "}
+                      <BsGripVertical className="me-2 fs-3" /> {lesson.name}
                       <LessonControlButtons />
-                      {/* Display lesson description if it exists */}
                       {lesson.description && (
                         <div className="wd-lesson-description text-muted small ps-5 mt-1">
                           {lesson.description}

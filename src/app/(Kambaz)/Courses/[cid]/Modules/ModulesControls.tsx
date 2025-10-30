@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import {
   Button,
   Dropdown,
@@ -7,7 +10,21 @@ import {
 } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from "./GreenCheckmark";
-export default function ModulesControls() {
+import ModuleEditor from "./ModuleEditor";
+
+export default function ModulesControls({
+  moduleName,
+  setModuleName,
+  addModule,
+}: {
+  moduleName: string;
+  setModuleName: (title: string) => void;
+  addModule: () => void;
+}) {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <div id="wd-modules-controls" className="text-nowrap">
       <Button
@@ -15,20 +32,21 @@ export default function ModulesControls() {
         size="lg"
         className="me-1 float-end"
         id="wd-add-module-btn"
+        onClick={handleShow}
       >
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
         Module
       </Button>
       <Button
         className="float-end me-2 btn-secondary"
-        variant="secondry"
+        variant="secondary"
         size="lg"
       >
         Collapse All
       </Button>
       <Button
         className="float-end me-2 btn-secondary"
-        variant="secondry"
+        variant="secondary"
         size="lg"
       >
         View Progress
@@ -44,14 +62,22 @@ export default function ModulesControls() {
           <DropdownItem id="wd-publish-modules-only">
             <GreenCheckmark /> Publish modules only
           </DropdownItem>
-          <DropdownItem id="wd-publish-modules-only">
+          <DropdownItem id="wd-unpublish-all-modules-and-items">
             <GreenCheckmark /> Unpublish all modules and items
           </DropdownItem>
-          <DropdownItem id="wd-publish-modules-only">
+          <DropdownItem id="wd-unpublish-modules-only">
             <GreenCheckmark /> Unpublish modules only
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
+      <ModuleEditor
+        show={show}
+        handleClose={handleClose}
+        dialogTitle="Add Module"
+        moduleName={moduleName}
+        setModuleName={setModuleName}
+        addModule={addModule}
+      />
     </div>
   );
 }
