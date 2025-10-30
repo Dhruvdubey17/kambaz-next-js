@@ -1,15 +1,21 @@
 "use client";
 
+import React from "react";
 import { useDispatch } from "react-redux";
+import { Button, ListGroupItem } from "react-bootstrap";
 import { deleteTodo, setTodo } from "./todosReducer";
-import { ListGroupItem, Button } from "react-bootstrap";
 
+// Define TypeScript type for a single todo
 interface Todo {
   id: string;
   title: string;
 }
 
-export default function TodoItem({ todo }: { todo: Todo }) {
+interface TodoItemProps {
+  todo: Todo;
+}
+
+export default function TodoItem({ todo }: TodoItemProps) {
   const dispatch = useDispatch();
 
   return (
@@ -17,7 +23,6 @@ export default function TodoItem({ todo }: { todo: Todo }) {
       <Button
         onClick={() => dispatch(deleteTodo(todo.id))}
         id="wd-delete-todo-click"
-        variant="danger"
         className="me-2"
       >
         Delete
@@ -25,7 +30,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
       <Button
         onClick={() => dispatch(setTodo(todo))}
         id="wd-set-todo-click"
-        variant="primary"
+        className="me-2"
       >
         Edit
       </Button>

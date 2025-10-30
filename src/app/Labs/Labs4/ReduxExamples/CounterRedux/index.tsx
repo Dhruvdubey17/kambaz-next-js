@@ -1,12 +1,18 @@
 "use client";
-
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "./counterReducer";
+
+// Define RootState to match your Redux store shape
+interface RootState {
+  counterReducer: {
+    count: number;
+  };
+}
+
 export default function CounterRedux() {
-  const count = useSelector(
-    (state: { counterReducer: { count: number } }) => state.counterReducer.count
-  );
+  const count = useSelector((state: RootState) => state.counterReducer.count);
   const dispatch = useDispatch();
+
   return (
     <div id="wd-counter-redux">
       <h2>Counter Redux</h2>
@@ -15,15 +21,13 @@ export default function CounterRedux() {
         onClick={() => dispatch(increment())}
         id="wd-counter-redux-increment-click"
       >
-        {" "}
-        Increment{" "}
+        Increment
       </button>
       <button
         onClick={() => dispatch(decrement())}
         id="wd-counter-redux-decrement-click"
       >
-        {" "}
-        Decrement{" "}
+        Decrement
       </button>
       <hr />
     </div>
