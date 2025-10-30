@@ -2,7 +2,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "./counterReducer";
 
-// Define RootState to match your Redux store shape
 interface RootState {
   counterReducer: {
     count: number;
