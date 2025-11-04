@@ -1,93 +1,140 @@
-import Link from "next/link";
-import {
-  Button,
-  Col,
-  Form,
-  FormControl,
-  FormSelect,
-  Row,
-} from "react-bootstrap";
+"use client";
+import { redirect } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentUser } from "../reducer";
+import { RootState } from "../../store";
+import { Button, FormControl } from "react-bootstrap";
+
+interface User {
+  _id: string;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  dob: string;
+  role: "USER" | "ADMIN" | "FACULTY" | "STUDENT";
+  loginId: string;
+  section: string;
+  lastActivity: string;
+  totalActivity: string;
+}
 
 export default function Profile() {
+  const [profile, setProfile] = useState<User>({
+    _id: "",
+    username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    dob: "",
+    role: "USER",
+    loginId: "",
+    section: "",
+    lastActivity: "",
+    totalActivity: "",
+  });
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector(
+    (state: RootState) => state.accountReducer
+  );
+
+  const fetchProfile = () => {
+    if (!currentUser) return redirect("/Account/Signin");
+    setProfile(currentUser);
+  };
+
+  const signout = () => {
+    dispatch(setCurrentUser(null));
+    redirect("/Account/Signin");
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
   return (
-    <div id="wd-profile-screen" className="p-3">
+    <div className="wd-profile-screen p-3">
       <h3>Profile</h3>
-      <Form>
-        <Row className="mb-3">
-          <Col sm={10}>
-            <FormControl
-              type="text"
-              defaultValue="alice"
-              placeholder="username"
-              className="wd-username"
-            />
-          </Col>
-        </Row>
-
-        <Row className="mb-3">
-          <Col sm={10}>
-            <FormControl
-              type="password"
-              defaultValue="123"
-              placeholder="password"
-              className="wd-password"
-            />
-          </Col>
-        </Row>
-
-        <Row className="mb-3">
-          <Col sm={10}>
-            <FormControl
-              type="text"
-              defaultValue="Alice"
-              placeholder="First Name"
-              id="wd-firstname"
-            />
-          </Col>
-        </Row>
-
-        <Row className="mb-3">
-          <Col sm={10}>
-            <FormControl
-              type="text"
-              defaultValue="Wonderland"
-              placeholder="Last Name"
-              id="wd-lastname"
-            />
-          </Col>
-        </Row>
-
-        <Row className="mb-3">
-          <Col sm={10}>
-            <FormControl type="date" defaultValue="2000-01-01" id="wd-dob" />
-          </Col>
-        </Row>
-
-        <Row className="mb-3">
-          <Col sm={10}>
-            <FormControl
-              type="email"
-              defaultValue="alice@wonderland"
-              id="wd-email"
-            />
-          </Col>
-        </Row>
-
-        <Row className="mb-3">
-          <Col sm={10}>
-            <FormSelect defaultValue="FACULTY" id="wd-role">
-              <option value="USER">User</option>
-              <option value="ADMIN">Admin</option>
-              <option value="FACULTY">Faculty</option>
-              <option value="STUDENT">Student</option>
-            </FormSelect>
-          </Col>
-        </Row>
-      </Form>
-
-      <Link href="/Account/Signin">
-        <Button variant="danger">Sign out</Button>
-      </Link>
+      {profile && (
+        <div>
+          <FormControl
+            id="wd-username"
+            className="mb-2"
+            value={profile.username}
+            placeholder="username"
+            onChange={(e) =>
+              setProfile({ ...profile, username: e.target.value })
+            }
+          />
+          <FormControl
+            id="wd-password"
+            className="mb-2"
+            type="password"
+            value={profile.password}
+            placeholder="password"
+            onChange={(e) =>
+              setProfile({ ...profile, password: e.target.value })
+            }
+          />
+          <FormControl
+            id="wd-firstname"
+            className="mb-2"
+            value={profile.firstName}
+            placeholder="First Name"
+            onChange={(e) =>
+              setProfile({ ...profile, firstName: e.target.value })
+            }
+          />
+          <FormControl
+            id="wd-lastname"
+            className="mb-2"
+            value={profile.lastName}
+            placeholder="Last Name"
+            onChange={(e) =>
+              setProfile({ ...profile, lastName: e.target.value })
+            }
+          />
+          <FormControl
+            id="wd-dob"
+            className="mb-2"
+            type="date"
+            value={profile.dob}
+            onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
+          />
+          <FormControl
+            id="wd-email"
+            className="mb-2"
+            type="email"
+            value={profile.email}
+            placeholder="email"
+            onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+          />
+          <select
+            className="form-control mb-2"
+            id="wd-role"
+            value={profile.role}
+            onChange={(e) =>
+              setProfile({ ...profile, role: e.target.value as User["role"] })
+            }
+          >
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+            <option value="FACULTY">Faculty</option>
+            <option value="STUDENT">Student</option>
+          </select>
+          <Button
+            onClick={signout}
+            className="w-100 mb-2"
+            id="wd-signout-btn"
+            variant="danger"
+          >
+            Sign out
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

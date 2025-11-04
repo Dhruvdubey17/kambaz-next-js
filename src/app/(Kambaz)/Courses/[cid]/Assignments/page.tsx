@@ -1,171 +1,53 @@
-// "use client";
-
-// import Link from "next/link";
-// import { BsGripVertical, BsSearch, BsPlus } from "react-icons/bs";
-// import { IoEllipsisVertical } from "react-icons/io5";
-// import { FaCheckCircle } from "react-icons/fa";
-// import { Button, Form, InputGroup } from "react-bootstrap";
-// import { MdAssignmentAdd } from "react-icons/md";
-// import { FaPlus } from "react-icons/fa";
-
-// export default function Assignments() {
-//   return (
-//     <div id="wd-assignments" className="p-3">
-//       <div className="d-flex justify-content-between mb-3">
-//         <InputGroup style={{ width: "300px" }}>
-//           <InputGroup.Text className="bg-white">
-//             <BsSearch />
-//           </InputGroup.Text>
-//           <Form.Control
-//             type="text"
-//             placeholder="Search for Assignments"
-//             id="wd-search-assignment"
-//           />
-//         </InputGroup>
-//         <div>
-//           <Button
-//             variant="secondary"
-//             className="me-2"
-//             id="wd-add-assignment-group"
-//           >
-//             <BsPlus className="me-1" /> Group
-//           </Button>
-//           <Button variant="danger" id="wd-add-assignment">
-//             <BsPlus className="me-1" /> Assignment
-//           </Button>
-//         </div>
-//       </div>
-//       <div className="border border-secondary p-3 mb-3 bg-light d-flex justify-content-between align-items-center">
-//         <div className="d-flex align-items-center">
-//           <BsGripVertical className="me-2 fs-4" />
-//           <strong>ASSIGNMENTS</strong>
-//         </div>
-//         <div className="d-flex align-items-center">
-//           <span className="text-muted border border-dark rounded-pill px-3 py-1 me-2">
-//             40% of Total
-//           </span>
-//           <FaPlus className="p-1 me-2 fs-4" />
-//           <IoEllipsisVertical className="fs-4" />
-//         </div>
-//       </div>
-//       <ul id="wd-assignment-list" className="list-group">
-//         <li className="wd-assignment-list-item list-group-item p-3 border border-secondary">
-//           <div className="d-flex justify-content-between align-items-center">
-//             <div className="d-flex align-items-center">
-//               <BsGripVertical className="me-2 fs-4" />
-//               <div className="me-3 text-success fs-3">
-//                 <MdAssignmentAdd />
-//               </div>
-//               <div>
-//                 <Link
-//                   href="/Courses/1234/Assignments/123"
-//                   className="wd-assignment-link text-dark fw-bold text-decoration-none"
-//                 >
-//                   A1
-//                 </Link>
-//                 <div className="text-danger small">Multiple Modules</div>
-//                 <div className="small text-muted">
-//                   <strong>Not available until</strong> May 6 at 12:00am |
-//                 </div>
-//                 <div className="small text-muted">
-//                   <strong>Due</strong> May 13 at 11:59pm | 100 pts
-//                 </div>
-//               </div>
-//             </div>
-//             <div>
-//               <FaCheckCircle className="text-success fs-4 me-2" />
-//               <IoEllipsisVertical className="fs-4" />
-//             </div>
-//           </div>
-//         </li>
-
-//         <li className="wd-assignment-list-item list-group-item p-3 border border-secondary">
-//           <div className="d-flex justify-content-between align-items-center">
-//             <div className="d-flex align-items-center">
-//               <BsGripVertical className="me-2 fs-4" />
-//               <div className="me-3 text-success fs-3">
-//                 <MdAssignmentAdd />
-//               </div>
-//               <div>
-//                 <Link
-//                   href="/Courses/1234/Assignments/123"
-//                   className="wd-assignment-link text-dark fw-bold text-decoration-none"
-//                 >
-//                   A2
-//                 </Link>
-//                 <div className="text-danger small">Multiple Modules</div>
-//                 <div className="small text-muted">
-//                   <strong>Not available until</strong> May 13 at 12:00am |
-//                 </div>
-//                 <div className="small text-muted">
-//                   <strong>Due</strong> May 20 at 11:59pm | 100 pts
-//                 </div>
-//               </div>
-//             </div>
-//             <div>
-//               <FaCheckCircle className="text-success fs-4 me-2" />
-//               <IoEllipsisVertical className="fs-4" />
-//             </div>
-//           </div>
-//         </li>
-
-//         <li className="wd-assignment-list-item list-group-item p-3 border border-secondary">
-//           <div className="d-flex justify-content-between align-items-center">
-//             <div className="d-flex align-items-center">
-//               <BsGripVertical className="me-2 fs-4" />
-//               <div className="me-3 text-success fs-3">
-//                 <MdAssignmentAdd />
-//               </div>
-//               <div>
-//                 <Link
-//                   href="/Courses/1234/Assignments/123"
-//                   className="wd-assignment-link text-dark fw-bold text-decoration-none"
-//                 >
-//                   A3
-//                 </Link>
-//                 <div className="text-danger small">Multiple Modules</div>
-//                 <div className="small text-muted">
-//                   <strong>Not available until</strong> May 20 at 12:00am |
-//                 </div>
-//                 <div className="small text-muted">
-//                   <strong>Due</strong> May 27 at 11:59pm | 100 pts
-//                 </div>
-//               </div>
-//             </div>
-//             <div className="d-flex align-items-center">
-//               <FaCheckCircle className="text-success fs-4 me-2" />
-//               <IoEllipsisVertical className="fs-4" />
-//             </div>
-//           </div>
-//         </li>
-//       </ul>
-//     </div>
-//   );
-// }
-
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import * as db from "../../../Database";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../store";
+import { deleteAssignment } from "./reducer";
 import { BsGripVertical } from "react-icons/bs";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { FaPencil } from "react-icons/fa6";
 
-interface Assignment {
+type User = {
   _id: string;
-  title: string;
-  course: string;
-}
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+};
 
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments: Assignment[] = db.assignments;
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  // Filter assignments for the current course
+  const { assignments } = useSelector(
+    (state: RootState) => state.assignmentsReducer
+  );
+  const { currentUser } = useSelector(
+    (state: RootState) => state.accountReducer
+  ) as {
+    currentUser: User | null;
+  };
+
   const courseAssignments = assignments.filter(
     (assignment) => assignment.course === cid
   );
+
+  const isFaculty = currentUser ? currentUser.role === "FACULTY" : false;
+
+  const handleDeleteAssignment = (assignmentId: string) => {
+    if (window.confirm("Are you sure you want to delete this assignment?")) {
+      dispatch(deleteAssignment(assignmentId));
+    }
+  };
+
+  const handleAddAssignment = () => {
+    router.push(`/Courses/${cid}/Assignments/new`);
+  };
 
   return (
     <div id="wd-assignments">
@@ -178,17 +60,23 @@ export default function Assignments() {
             style={{ width: "300px" }}
           />
         </div>
-        <div>
-          <button
-            id="wd-add-assignment-group"
-            className="btn btn-secondary me-2"
-          >
-            <FaPlus className="me-1" /> Group
-          </button>
-          <button id="wd-add-assignment" className="btn btn-danger">
-            <FaPlus className="me-1" /> Assignment
-          </button>
-        </div>
+        {isFaculty && (
+          <div>
+            <button
+              id="wd-add-assignment-group"
+              className="btn btn-secondary me-2"
+            >
+              <FaPlus className="me-1" /> Group
+            </button>
+            <button
+              id="wd-add-assignment"
+              className="btn btn-danger"
+              onClick={handleAddAssignment}
+            >
+              <FaPlus className="me-1" /> Assignment
+            </button>
+          </div>
+        )}
       </div>
 
       <ul id="wd-assignment-list" className="list-group rounded-0">
@@ -202,8 +90,12 @@ export default function Assignments() {
               <span className="badge rounded-pill bg-secondary border border-dark me-2">
                 40% of Total
               </span>
-              <FaPlus className="me-2" />
-              <IoEllipsisVertical className="fs-4" />
+              {isFaculty && (
+                <>
+                  <FaPlus className="me-2" />
+                  <IoEllipsisVertical className="fs-4" />
+                </>
+              )}
             </div>
           </div>
 
@@ -230,9 +122,23 @@ export default function Assignments() {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <IoEllipsisVertical className="fs-4" />
-                </div>
+                {isFaculty && (
+                  <div className="d-flex align-items-center">
+                    <Link
+                      href={`/Courses/${cid}/Assignments/${assignment._id}`}
+                      className="btn btn-link text-dark"
+                    >
+                      <FaPencil />
+                    </Link>
+                    <button
+                      onClick={() => handleDeleteAssignment(assignment._id)}
+                      className="btn btn-link text-danger"
+                    >
+                      <FaTrash />
+                    </button>
+                    <IoEllipsisVertical className="fs-4" />
+                  </div>
+                )}
               </li>
             ))}
           </ul>

@@ -20,18 +20,18 @@ export default function TodoItem({ todo }: TodoItemProps) {
   return (
     <ListGroupItem key={todo.id}>
       <Button
-        onClick={() => dispatch(deleteTodo(todo.id))}
-        id="wd-delete-todo-click"
-        className="me-2"
-      >
-        Delete
-      </Button>
-      <Button
         onClick={() => dispatch(setTodo(todo))}
         id="wd-set-todo-click"
         className="me-2"
       >
         Edit
+      </Button>
+      <Button
+        onClick={() => dispatch(deleteTodo(todo.id))}
+        id="wd-delete-todo-click"
+        className="me-2 bg-danger"
+      >
+        Delete
       </Button>
       {todo.title}
     </ListGroupItem>

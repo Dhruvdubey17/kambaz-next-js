@@ -4,7 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewCourse, deleteCourse, updateCourse } from "../Courses/reducer";
-import { courses as dbCourses } from "../Database";
+import {
+  courses as dbCourses,
+  enrollments as dbEnrollments,
+} from "../Database";
 import {
   Button,
   Card,
@@ -16,21 +19,42 @@ import {
   FormControl,
   Row,
 } from "react-bootstrap";
+import type { RootState, AppDispatch } from "../store";
 
-// Infer Course type from your Database
-type Course = (typeof dbCourses)[number];
+type Course = {
+  _id: string;
+  name: string;
+  number: string;
+  startDate: string;
+  endDate: string;
+  department: string;
+  credits: number;
+  description: string;
+};
 
-interface RootState {
-  coursesReducer: {
-    courses: Course[];
-  };
-}
+type Enrollment = {
+  user: string; // user._id
+  course: string; // course._id
+};
+
+type User = {
+  _id: string;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+};
 
 export default function Dashboard() {
+  const dispatch = useDispatch<AppDispatch>();
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
-  const dispatch = useDispatch();
+  const { currentUser } = useSelector(
+    (state: RootState) => state.accountReducer
+  ) as {
+    currentUser: User | null;
+  };
 
-  // State for the course currently being edited/added
   const [course, setCourse] = useState<Omit<Course, "_id">>({
     name: "New Course",
     number: "NEW000",
@@ -41,10 +65,8 @@ export default function Dashboard() {
     description: "New Description",
   });
 
-  // Add new course
   const handleAddNewCourse = () => {
     dispatch(addNewCourse(course));
-    // Reset the form
     setCourse({
       name: "New Course",
       number: "NEW000",
@@ -56,7 +78,6 @@ export default function Dashboard() {
     });
   };
 
-  // Update course
   const handleUpdateCourse = () => {
     if (!("_id" in course)) {
       alert(
@@ -67,15 +88,22 @@ export default function Dashboard() {
     dispatch(updateCourse(course as Course));
   };
 
-  // Delete course
   const handleDeleteCourse = (_id: string) => {
     dispatch(deleteCourse(_id));
   };
 
-  // Load course into form for editing
   const handleEditCourse = (c: Course) => {
     setCourse(c);
   };
+
+  const enrolledCourses: Course[] = currentUser
+    ? courses.filter((c) =>
+        dbEnrollments.some(
+          (enrollment: Enrollment) =>
+            enrollment.user === currentUser._id && enrollment.course === c._id
+        )
+      )
+    : [];
 
   return (
     <div id="wd-dashboard">
@@ -117,11 +145,13 @@ export default function Dashboard() {
         onChange={(e) => setCourse({ ...course, description: e.target.value })}
       />
       <hr />
-      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
+      <h2 id="wd-dashboard-published">
+        Published Courses ({enrolledCourses.length})
+      </h2>
       <hr />
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
-          {courses.map((c) => (
+          {enrolledCourses.map((c) => (
             <Col
               key={c._id}
               className="wd-dashboard-course"

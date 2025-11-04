@@ -2,6 +2,7 @@
 
 import { ReactNode, useState } from "react";
 import CourseNavigation from "./Navigation";
+import CourseProtection from "./CourseProtection";
 import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 import { FaAlignJustify } from "react-icons/fa";
@@ -27,24 +28,26 @@ export default function CoursesLayout({ children }: { children: ReactNode }) {
   const toggleNavigation = () => setShowNavigation(!showNavigation);
 
   return (
-    <div id="wd-courses">
-      <h2 className="text-danger">
-        <FaAlignJustify
-          className="me-4 fs-4 mb-1"
-          style={{ cursor: "pointer" }}
-          onClick={toggleNavigation}
-        />
-        {course?.name} <Breadcrumb course={course} />
-      </h2>
-      <hr />
-      <div className="d-flex">
-        {showNavigation && (
-          <div className="d-none d-md-block">
-            <CourseNavigation cid={cid || ""} />
-          </div>
-        )}
-        <div className="flex-fill">{children}</div>
+    <CourseProtection>
+      <div id="wd-courses">
+        <h2 className="text-danger">
+          <FaAlignJustify
+            className="me-4 fs-4 mb-1"
+            style={{ cursor: "pointer" }}
+            onClick={toggleNavigation}
+          />
+          {course?.name} <Breadcrumb course={course} />
+        </h2>
+        <hr />
+        <div className="d-flex">
+          {showNavigation && (
+            <div className="d-none d-md-block">
+              <CourseNavigation cid={cid || ""} />
+            </div>
+          )}
+          <div className="flex-fill">{children}</div>
+        </div>
       </div>
-    </div>
+    </CourseProtection>
   );
 }
