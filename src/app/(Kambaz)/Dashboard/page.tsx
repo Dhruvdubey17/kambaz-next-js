@@ -151,6 +151,7 @@ export default function Dashboard() {
     if (currentUser) {
       await client.enrollInCourse(currentUser._id, courseId);
       await fetchEnrollments();
+      await fetchCourses();
     }
   };
 
@@ -158,6 +159,7 @@ export default function Dashboard() {
     if (currentUser) {
       await client.unenrollFromCourse(currentUser._id, courseId);
       await fetchEnrollments();
+      await fetchCourses();
     }
   };
 
