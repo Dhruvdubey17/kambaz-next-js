@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { assignments } from "../../../Database";
 
 export interface Assignment {
   _id: string;
@@ -17,7 +16,7 @@ interface AssignmentsState {
 }
 
 const initialState: AssignmentsState = {
-  assignments: assignments as Assignment[],
+  assignments: [],
 };
 
 const assignmentsSlice = createSlice({

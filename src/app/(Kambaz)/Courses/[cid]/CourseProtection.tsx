@@ -36,12 +36,10 @@ export default function CourseProtection({
       return;
     }
 
-    // Faculty can access all courses
     if (currentUser.role === "FACULTY") {
       return;
     }
 
-    // Check if user is enrolled in this course
     const isEnrolled = enrollments.some(
       (enrollment) =>
         enrollment.user === currentUser._id && enrollment.course === cid

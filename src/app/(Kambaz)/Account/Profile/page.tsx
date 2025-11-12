@@ -1,10 +1,13 @@
 "use client";
-import { redirect } from "next/navigation";
+
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../reducer";
 import { RootState } from "../../store";
-import { Button, FormControl } from "react-bootstrap";
+import { Button, FormControl, Alert } from "react-bootstrap";
+import * as client from "../client";
+import { AxiosError } from "axios";
 
 interface User {
   _id: string;
@@ -36,19 +39,48 @@ export default function Profile() {
     lastActivity: "",
     totalActivity: "",
   });
+  const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
   const dispatch = useDispatch();
+  const router = useRouter();
   const { currentUser } = useSelector(
     (state: RootState) => state.accountReducer
   );
 
   const fetchProfile = () => {
-    if (!currentUser) return redirect("/Account/Signin");
+    if (!currentUser) {
+      router.push("/Account/Signin");
+      return;
+    }
     setProfile(currentUser);
   };
 
-  const signout = () => {
-    dispatch(setCurrentUser(null));
-    redirect("/Account/Signin");
+  const updateProfile = async () => {
+    try {
+      const updatedProfile = await client.updateUser(profile);
+      dispatch(setCurrentUser(updatedProfile));
+      setSuccess("Profile updated successfully!");
+      setError("");
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        setError(error.response.data.message || "Failed to update profile");
+      } else {
+        setError("An error occurred while updating profile");
+      }
+      setSuccess("");
+    }
+  };
+
+  const signout = async () => {
+    try {
+      await client.signout();
+      dispatch(setCurrentUser(null));
+      router.push("/Account/Signin");
+    } catch (error) {
+      console.error("Signout error:", error);
+      dispatch(setCurrentUser(null));
+      router.push("/Account/Signin");
+    }
   };
 
   useEffect(() => {
@@ -58,6 +90,8 @@ export default function Profile() {
   return (
     <div className="wd-profile-screen p-3">
       <h3>Profile</h3>
+      {error && <Alert variant="danger">{error}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
       {profile && (
         <div>
           <FormControl
@@ -125,6 +159,14 @@ export default function Profile() {
             <option value="FACULTY">Faculty</option>
             <option value="STUDENT">Student</option>
           </select>
+          <Button
+            onClick={updateProfile}
+            className="w-100 mb-2"
+            id="wd-update-btn"
+            variant="primary"
+          >
+            Update
+          </Button>
           <Button
             onClick={signout}
             className="w-100 mb-2"

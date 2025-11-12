@@ -1,4 +1,6 @@
 "use client";
+
+import Session from "./Account/Session";
 import { ReactNode } from "react";
 import "react-bootstrap";
 import "./styles.css";
@@ -11,14 +13,16 @@ export default function KambazLayout({
 }: Readonly<{ children: ReactNode }>) {
   return (
     <Provider store={store}>
-      <div className="d-flex">
-        <div>
-          <KambazNavigation />
+      <Session>
+        <div className="d-flex">
+          <div>
+            <KambazNavigation />
+          </div>
+          <div className="p-3 flex-fill" style={{ marginLeft: "120px" }}>
+            {children}
+          </div>
         </div>
-        <div className="p-3 flex-fill" style={{ marginLeft: "120px" }}>
-          {children}
-        </div>
-      </div>
+      </Session>
     </Provider>
   );
 }

@@ -1,9 +1,12 @@
 "use client";
+
 import { useParams, useRouter } from "next/navigation";
+import { useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../store";
-import { deleteAssignment } from "./reducer";
+import { RootState, AppDispatch } from "../../../store";
+import { setAssignments } from "./reducer";
+import * as client from "../../client";
 import { BsGripVertical } from "react-icons/bs";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
@@ -22,7 +25,7 @@ type User = {
 export default function Assignments() {
   const { cid } = useParams();
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const { assignments } = useSelector(
     (state: RootState) => state.assignmentsReducer
@@ -33,21 +36,29 @@ export default function Assignments() {
     currentUser: User | null;
   };
 
-  const courseAssignments = assignments.filter(
-    (assignment) => assignment.course === cid
-  );
+  const fetchAssignments = useCallback(async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  }, [cid, dispatch]);
 
-  const isFaculty = currentUser ? currentUser.role === "FACULTY" : false;
+  useEffect(() => {
+    fetchAssignments();
+  }, [fetchAssignments]);
 
-  const handleDeleteAssignment = (assignmentId: string) => {
+  const onDeleteAssignment = async (assignmentId: string) => {
     if (window.confirm("Are you sure you want to delete this assignment?")) {
-      dispatch(deleteAssignment(assignmentId));
+      await client.deleteAssignment(assignmentId);
+      dispatch(
+        setAssignments(assignments.filter((a) => a._id !== assignmentId))
+      );
     }
   };
 
   const handleAddAssignment = () => {
     router.push(`/Courses/${cid}/Assignments/new`);
   };
+
+  const isFaculty = currentUser ? currentUser.role === "FACULTY" : false;
 
   return (
     <div id="wd-assignments">
@@ -100,7 +111,7 @@ export default function Assignments() {
           </div>
 
           <ul className="wd-assignment-list list-group rounded-0">
-            {courseAssignments.map((assignment) => (
+            {assignments.map((assignment) => (
               <li
                 key={assignment._id}
                 className="wd-assignment-list-item list-group-item p-3 ps-1 d-flex justify-content-between align-items-center"
@@ -117,8 +128,10 @@ export default function Assignments() {
                     </Link>
                     <div className="text-muted small">
                       <span className="text-danger">Multiple Modules</span> |{" "}
-                      <strong>Not available until</strong> May 6 at 12:00am |
-                      <strong> Due</strong> May 13 at 11:59pm | 100 pts
+                      <strong>Not available until</strong>{" "}
+                      {assignment.availableFrom || "May 6"} |
+                      <strong> Due</strong> {assignment.dueDate || "May 13"} |{" "}
+                      {assignment.points || 100} pts
                     </div>
                   </div>
                 </div>
@@ -131,7 +144,7 @@ export default function Assignments() {
                       <FaPencil />
                     </Link>
                     <button
-                      onClick={() => handleDeleteAssignment(assignment._id)}
+                      onClick={() => onDeleteAssignment(assignment._id)}
                       className="btn btn-link text-danger"
                     >
                       <FaTrash />

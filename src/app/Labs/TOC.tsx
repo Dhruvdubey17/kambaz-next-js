@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 export default function TOC() {
   const pathname = usePathname();
+
   return (
     <Nav variant="pills">
       <NavItem>
@@ -46,11 +47,20 @@ export default function TOC() {
       </NavItem>
       <NavItem>
         <NavLink
-          href="/Labs/Labs4"
+          href="/Labs/Lab4"
           as={Link}
-          className={`nav-link ${pathname.endsWith("Lab4") ? "active" : ""}`}
+          className={`nav-link ${pathname.includes("Lab4") ? "active" : ""}`}
         >
           Lab 4
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink
+          href="/Labs/Lab5"
+          as={Link}
+          className={`nav-link ${pathname.includes("Lab5") ? "active" : ""}`}
+        >
+          Lab 5
         </NavLink>
       </NavItem>
       <NavItem>
@@ -59,7 +69,13 @@ export default function TOC() {
         </NavLink>
       </NavItem>
       <NavItem>
-        <NavLink href="https://github.com/Dhruvdubey17">My GitHub</NavLink>
+        <NavLink
+          href="https://github.com/Dhruvdubey17"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          My GitHub
+        </NavLink>
       </NavItem>
     </Nav>
   );

@@ -1,10 +1,10 @@
 "use client";
+
 import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
-import { addAssignment, updateAssignment } from "../reducer";
-import { v4 as uuidv4 } from "uuid";
+import * as client from "../../../client";
 
 type User = {
   _id: string;
@@ -29,18 +29,13 @@ interface Assignment {
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
   const router = useRouter();
-  const dispatch = useDispatch();
 
-  const { assignments } = useSelector(
-    (state: RootState) => state.assignmentsReducer
-  );
   const { currentUser } = useSelector(
     (state: RootState) => state.accountReducer
   ) as {
     currentUser: User | null;
   };
 
-  const existingAssignment = assignments.find((a) => a._id === aid);
   const isNewAssignment = aid === "new";
 
   const [assignment, setAssignment] = useState<Omit<Assignment, "_id">>({
@@ -54,32 +49,37 @@ export default function AssignmentEditor() {
   });
 
   useEffect(() => {
-    if (existingAssignment && !isNewAssignment) {
-      setAssignment({
-        title: existingAssignment.title,
-        course: existingAssignment.course,
-        description: existingAssignment.description || "",
-        points: existingAssignment.points || 100,
-        dueDate: existingAssignment.dueDate || "2024-05-13",
-        availableFrom: existingAssignment.availableFrom || "2024-05-06",
-        availableUntil: existingAssignment.availableUntil || "2024-05-20",
-      });
-    }
-  }, [existingAssignment, isNewAssignment]);
+    const fetchAssignment = async () => {
+      if (!isNewAssignment) {
+        const assignments = await client.findAssignmentsForCourse(
+          cid as string
+        );
+        const existingAssignment = assignments.find((a) => a._id === aid);
+        if (existingAssignment) {
+          setAssignment({
+            title: existingAssignment.title,
+            course: existingAssignment.course,
+            description: existingAssignment.description || "",
+            points: existingAssignment.points || 100,
+            dueDate: existingAssignment.dueDate || "2024-05-13",
+            availableFrom: existingAssignment.availableFrom || "2024-05-06",
+            availableUntil: existingAssignment.availableUntil || "2024-05-20",
+          });
+        }
+      }
+    };
+    fetchAssignment();
+  }, [aid, cid, isNewAssignment]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (isNewAssignment) {
-      const newAssignment: Assignment = {
-        ...assignment,
-        _id: uuidv4(),
-      };
-      dispatch(addAssignment(newAssignment));
+      await client.createAssignment(cid as string, assignment);
     } else {
       const updatedAssignment: Assignment = {
         ...assignment,
         _id: aid as string,
       };
-      dispatch(updateAssignment(updatedAssignment));
+      await client.updateAssignment(updatedAssignment);
     }
     router.push(`/Courses/${cid}/Assignments`);
   };
