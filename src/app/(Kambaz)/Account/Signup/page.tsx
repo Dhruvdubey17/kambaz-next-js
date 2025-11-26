@@ -7,12 +7,25 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { FormControl, Button, Alert } from "react-bootstrap";
 import * as client from "../client";
-import type { User } from "../client";
 import type { AppDispatch } from "../../store";
 import { AxiosError } from "axios";
 
+interface SignupUser {
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  dob?: string;
+  loginId?: string;
+  section?: string;
+  lastActivity?: string;
+  totalActivity?: string;
+}
+
 export default function Signup() {
-  const [user, setUser] = useState<Omit<User, "_id">>({
+  const [user, setUser] = useState<SignupUser>({
     username: "",
     password: "",
     firstName: "",
@@ -20,6 +33,8 @@ export default function Signup() {
     email: "",
     role: "STUDENT",
     dob: "",
+    loginId: "",
+    section: "",
   });
   const [error, setError] = useState<string>("");
   const dispatch = useDispatch<AppDispatch>();

@@ -24,6 +24,19 @@ export interface Module {
   course: string;
 }
 
+export interface User {
+  _id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  loginId?: string;
+  section?: string;
+  lastActivity?: string;
+  totalActivity?: string;
+}
+
 export const fetchAllCourses = async (): Promise<Course[]> => {
   const { data } = await axiosWithCredentials.get(COURSES_API);
   return data;
@@ -170,4 +183,11 @@ export const unenrollFromCourse = async (
   await axiosWithCredentials.delete(
     `${USERS_API}/${userId}/courses/${courseId}/unenroll`
   );
+};
+
+export const findUsersForCourse = async (courseId: string): Promise<User[]> => {
+  const { data } = await axiosWithCredentials.get(
+    `${COURSES_API}/${courseId}/users`
+  );
+  return data;
 };
