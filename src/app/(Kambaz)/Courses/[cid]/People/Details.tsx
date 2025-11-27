@@ -118,7 +118,7 @@ export default function PeopleDetails({ uid, onClose }: PeopleDetailsProps) {
           </div>
           <div className="mb-2">
             <label className="form-label">
-              <b>Role:</b>
+              <b>Role: </b>
             </label>
             <select
               className="form-select wd-edit-role"
