@@ -45,7 +45,7 @@ export default function CourseNavigation({ cid }: CourseNavigationProps) {
       id: "wd-course-grades-link",
     },
     {
-      href: `/Courses/${cid}/People/Table`,
+      href: `/Courses/${cid}/People/`,
       label: "People",
       id: "wd-course-people-link",
     },

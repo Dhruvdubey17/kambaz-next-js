@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { User } from "../Account/client";
 
 const axiosWithCredentials = axios.create({ withCredentials: true });
 
@@ -22,19 +23,6 @@ export interface Module {
   name: string;
   description?: string;
   course: string;
-}
-
-export interface User {
-  _id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: string;
-  loginId?: string;
-  section?: string;
-  lastActivity?: string;
-  totalActivity?: string;
 }
 
 export const fetchAllCourses = async (): Promise<Course[]> => {
@@ -100,8 +88,13 @@ export const updateModule = async (module: Module): Promise<Module> => {
   return data;
 };
 
-export const deleteModule = async (moduleId: string): Promise<void> => {
-  await axiosWithCredentials.delete(`${HTTP_SERVER}/api/modules/${moduleId}`);
+export const deleteModule = async (
+  courseId: string,
+  moduleId: string
+): Promise<void> => {
+  await axiosWithCredentials.delete(
+    `${COURSES_API}/${courseId}/modules/${moduleId}`
+  );
 };
 
 export interface Assignment {

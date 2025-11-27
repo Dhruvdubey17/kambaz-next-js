@@ -82,3 +82,18 @@ export const createUser = async (user: Partial<User>): Promise<User> => {
   const response = await axiosWithCredentials.post(`${USERS_API}`, user);
   return response.data;
 };
+
+export interface Enrollment {
+  _id: string;
+  user: string;
+  course: string;
+}
+
+export const findEnrollmentsForUser = async (
+  userId: string
+): Promise<Enrollment[]> => {
+  const { data } = await axiosWithCredentials.get(
+    `${USERS_API}/${userId}/enrollments`
+  );
+  return data;
+};
